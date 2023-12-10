@@ -1,0 +1,250 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "3d0b5bfdde96c51f9071fd7a30136e2c",
+    "entities": [
+      {
+        "tableName": "LoginActivity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mUsername` TEXT, `mPassword` TEXT, `mButton` TEXT, `mLogId` INTEGER NOT NULL, `mUserId` INTEGER NOT NULL, `mDelegate` TEXT, `mResources` TEXT, `mFragments` TEXT, `mFragmentLifecycleRegistry` TEXT, `mCreated` INTEGER NOT NULL, `mResumed` INTEGER NOT NULL, `mStopped` INTEGER NOT NULL, `mContextAwareHelper` TEXT, `mMenuHostHelper` TEXT, `mLifecycleRegistry` TEXT, `mSavedStateRegistryController` TEXT, `mViewModelStore` TEXT, `mDefaultFactory` TEXT, `mOnBackPressedDispatcher` TEXT, `mReportFullyDrawnExecutor` TEXT, `mFullyDrawnReporter` TEXT NOT NULL, `mContentLayoutId` INTEGER NOT NULL, `mNextLocalRequestCode` TEXT, `mActivityResultRegistry` TEXT, `mOnConfigurationChangedListeners` TEXT, `mOnTrimMemoryListeners` TEXT, `mOnNewIntentListeners` TEXT, `mOnMultiWindowModeChangedListeners` TEXT, `mOnPictureInPictureModeChangedListeners` TEXT, `mDispatchingOnMultiWindowModeChanged` INTEGER NOT NULL, `mDispatchingOnPictureInPictureModeChanged` INTEGER NOT NULL, `mExtraDataMap` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "mUsername",
+            "columnName": "mUsername",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mPassword",
+            "columnName": "mPassword",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mButton",
+            "columnName": "mButton",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mLogId",
+            "columnName": "mLogId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mUserId",
+            "columnName": "mUserId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mDelegate",
+            "columnName": "mDelegate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mResources",
+            "columnName": "mResources",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mFragments",
+            "columnName": "mFragments",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mFragmentLifecycleRegistry",
+            "columnName": "mFragmentLifecycleRegistry",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mCreated",
+            "columnName": "mCreated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mResumed",
+            "columnName": "mResumed",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mStopped",
+            "columnName": "mStopped",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mContextAwareHelper",
+            "columnName": "mContextAwareHelper",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mMenuHostHelper",
+            "columnName": "mMenuHostHelper",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mLifecycleRegistry",
+            "columnName": "mLifecycleRegistry",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mSavedStateRegistryController",
+            "columnName": "mSavedStateRegistryController",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mViewModelStore",
+            "columnName": "mViewModelStore",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDefaultFactory",
+            "columnName": "mDefaultFactory",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mOnBackPressedDispatcher",
+            "columnName": "mOnBackPressedDispatcher",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mReportFullyDrawnExecutor",
+            "columnName": "mReportFullyDrawnExecutor",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mFullyDrawnReporter",
+            "columnName": "mFullyDrawnReporter",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mContentLayoutId",
+            "columnName": "mContentLayoutId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mNextLocalRequestCode",
+            "columnName": "mNextLocalRequestCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mActivityResultRegistry",
+            "columnName": "mActivityResultRegistry",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mOnConfigurationChangedListeners",
+            "columnName": "mOnConfigurationChangedListeners",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mOnTrimMemoryListeners",
+            "columnName": "mOnTrimMemoryListeners",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mOnNewIntentListeners",
+            "columnName": "mOnNewIntentListeners",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mOnMultiWindowModeChangedListeners",
+            "columnName": "mOnMultiWindowModeChangedListeners",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mOnPictureInPictureModeChangedListeners",
+            "columnName": "mOnPictureInPictureModeChangedListeners",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mDispatchingOnMultiWindowModeChanged",
+            "columnName": "mDispatchingOnMultiWindowModeChanged",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mDispatchingOnPictureInPictureModeChanged",
+            "columnName": "mDispatchingOnPictureInPictureModeChanged",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mExtraDataMap",
+            "columnName": "mExtraDataMap",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "USER_TABLE2",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mUserId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mUserName` TEXT, `mPassword` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "mUserId",
+            "columnName": "mUserId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mUserName",
+            "columnName": "mUserName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "mPassword",
+            "columnName": "mPassword",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "mUserId"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3d0b5bfdde96c51f9071fd7a30136e2c')"
+    ]
+  }
+}

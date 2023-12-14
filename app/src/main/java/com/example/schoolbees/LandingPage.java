@@ -193,7 +193,7 @@ public class LandingPage extends AppCompatActivity {
 
 
     private void goBackToPreviousPage(){
-        Intent intent = new Intent(this, LandingPage.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
@@ -268,10 +268,16 @@ public class LandingPage extends AppCompatActivity {
         if (mUserId != -1) {
             return;
         }
-        SharedPreferences preferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
-        mUserId = mPreferences.getInt(USER_ID_KEY, -1);
         if(mPreferences == null){
             getPrefs();
+        }
+
+//        SharedPreferences preferences = this.getSharedPreferences(PREFERENCES_KEY,Context.MODE_PRIVATE);
+//        mUserId = preferences.getInt(USER_ID_KEY,-1);
+
+        mUserId = mPreferences.getInt(USER_ID_KEY, -1);
+        if (mUserId != -1) {
+            return;
         }
 
         Intent intent = LoginActivity.intentFactory(this);
@@ -443,38 +449,3 @@ public class LandingPage extends AppCompatActivity {
 //    }
 
 }
-
-//    String name = mUser.getUserName();
-//
-//                if (){
-//                        User newUser = new User("false", name, password);
-//                        mUserDao.insert(newUser);
-//                        deleteUser();
-//                        openLoginActivity();
-//                        }
-
-//    private void logoutUser() {
-//        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-//
-//        alertBuilder.setMessage(R.string.log_out);
-//
-//        alertBuilder.setPositiveButton(getString(R.string.yes),
-//                new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        clearUserFromIntent();
-//                        clearUserFromPref();
-//                        mUserId = -1;
-//                        checkForUser();
-//                        MainActivity();
-//                    }
-//                });
-//        alertBuilder.setNegativeButton(getString(R.string.no),
-//                new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//        alertBuilder.create().show();
-//    }

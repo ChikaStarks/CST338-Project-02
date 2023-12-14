@@ -2,6 +2,7 @@ package com.example.schoolbees;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import android.content.Context;
@@ -20,6 +21,8 @@ import com.example.schoolbees.DB.PostDao;
 import com.example.schoolbees.DB.UserDao;
 import com.example.schoolbees.databinding.ActivityAdminThingsBinding;
 
+import java.util.List;
+
 public class AdminThings extends AppCompatActivity {
 
     ActivityAdminThingsBinding mActivityAdminThingsBinding;
@@ -33,12 +36,21 @@ public class AdminThings extends AppCompatActivity {
     private User mUser;
     private Post mPost;
 
+    private String mUsername;
+
+    private String mPostname;
+
     private TextView mDisplayUsers;
     private TextView mDisplayPosts;
 
     private Button goBackButton;
 
     private Button SignOutButton; //logout button
+
+    List<Post> mPostList;
+    List<User> mUserList;
+
+    LiveData<List<Post>> mLiveData; // tired to use Live data, didn't have enough time.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,22 +61,23 @@ public class AdminThings extends AppCompatActivity {
         setContentView(mActivityAdminThingsBinding.getRoot());
 
         wireupdisplay();
-       // getUserDatabase();
-        getDatabase();
+        getUserDatabase();
+        getPostDatabase();
         displayUsers();
-      //  loginUser(mUserId);
-      // mDisplayUsers.setText(mUser.toString());
-//        mDisplayPosts.setText(mPost.toString());
+        displayPosts();
+
+
+
 
 
     }//end of onCreate
 
-    private void wireupdisplay(){
-        mDisplayPosts = mActivityAdminThingsBinding.textView15;
+    private void wireupdisplay() {
+        mDisplayPosts = mActivityAdminThingsBinding.textView17;
 
         mDisplayPosts.setMovementMethod(new ScrollingMovementMethod());
 
-        mDisplayUsers = mActivityAdminThingsBinding.textView17;
+        mDisplayUsers = mActivityAdminThingsBinding.textView15;
         mDisplayUsers.setMovementMethod(new ScrollingMovementMethod());
 
         //Sign Out Button
@@ -87,14 +100,31 @@ public class AdminThings extends AppCompatActivity {
 
     }
 
-
-
-    public boolean displayUsers() {
-        if(mUser != null){
-            mDisplayPosts.setText(mPost.toString());
+    public void displayUsers() {
+        mUserList = mUserDao.getAllUsers();
+            StringBuilder sb = new StringBuilder();
+            for (User user : mUserList) {
+                sb.append(user.toString());
+                mDisplayUsers.setText(sb.toString());
         }
-        return false;
     }
+
+    public void displayPosts(){
+        mPostList = mPostDao.getAllPosts();
+        StringBuilder sb = new StringBuilder();
+        for (Post post : mPostList){
+            sb.append(post.toString());
+            mDisplayPosts.setText(sb.toString());
+        }
+    }
+
+
+
+
+
+
+
+
 
     private void goBackToPreviousPage(){
         Intent intent = new Intent(this, LandingPage.class);
@@ -141,12 +171,16 @@ public class AdminThings extends AppCompatActivity {
         if (mUserId != -1) {
             return;
         }
-        SharedPreferences preferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
-        mUserId = mPreferences.getInt(USER_ID_KEY, -1);
-        if (mPreferences == null) {
+        if(mPreferences == null){
             getPrefs();
         }
+
+        mUserId = mPreferences.getInt(USER_ID_KEY, -1);
+        if (mUserId != -1) {
+            return;
+        }
     }
+
 
     private void addUserToPreference(int userId){
         if (mPreferences == null){
@@ -157,11 +191,6 @@ public class AdminThings extends AppCompatActivity {
         editor.apply();
     }
 
-    private void getDatabase() {
-        mPostDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
-                .allowMainThreadQueries()
-                .build().getPostDao();
-    }
     private void getUserDatabase() {
         mUserDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
                 .allowMainThreadQueries()

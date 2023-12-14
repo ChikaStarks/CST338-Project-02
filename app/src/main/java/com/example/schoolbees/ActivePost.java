@@ -11,13 +11,19 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schoolbees.DB.AppDataBase;
+import com.example.schoolbees.DB.PostDao;
 import com.example.schoolbees.DB.UserDao;
+import com.example.schoolbees.databinding.ActivityActivePostBinding;
+
+import java.util.List;
 
 public class ActivePost extends AppCompatActivity {
 
+    ActivityActivePostBinding mActivityActivePostBinding;
     private SharedPreferences mPreferences = null;
     private Button SignOutButton; //logout button
     private Button goBackButton;
@@ -26,10 +32,29 @@ public class ActivePost extends AppCompatActivity {
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
     private UserDao mUserDao;
 
+    private int mUserNumber;
+    private TextView mDisplay;
+
+
+    private PostDao mPostDao;
+    private Post mPost;
+    private String mPostname;
+    private TextView mDisplayPosts;
+    List<Post> mPostList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_active_post);
+
+        mActivityActivePostBinding = ActivityActivePostBinding.inflate(getLayoutInflater());
+        setContentView(mActivityActivePostBinding.getRoot());
+
+        getUserDatabase();
+        getPostDatabase();
+        checkMatch();
+        showPosts();
+
         //Sign Out Button
         SignOutButton = findViewById(R.id.signOutButton);
 
@@ -47,6 +72,8 @@ public class ActivePost extends AppCompatActivity {
                 goBackToPreviousPage();
             }
         });
+
+        mDisplay = findViewById(R.id.textView9);
 
     }
 
@@ -95,12 +122,16 @@ public class ActivePost extends AppCompatActivity {
         if (mUserId != -1) {
             return;
         }
-        SharedPreferences preferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
-        mUserId = mPreferences.getInt(USER_ID_KEY, -1);
-        if (mPreferences == null) {
+        if(mPreferences == null){
             getPrefs();
         }
+
+        mUserId = mPreferences.getInt(USER_ID_KEY, -1);
+        if (mUserId != -1) {
+            return;
+        }
     }
+
 
     private void addUserToPreference(int userId){
         if (mPreferences == null){
@@ -111,10 +142,33 @@ public class ActivePost extends AppCompatActivity {
         editor.apply();
     }
 
-    private void getDatabase() {
+    private boolean checkMatch() {
+        mPostList = mPostDao.getPostBymUserId(mUserNumber);
+        if (mPostList.isEmpty()) {
+            Toast.makeText(this, "You have no active post.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
+
+    private void showPosts() {
+        mPostList = mPostDao.getPostBymUserId(mUserNumber);
+        mDisplay.setText(mPostList.toString().replace("[", "")
+                .replace("]", "").replace(",", ""));
+
+    }
+
+
+    private void getUserDatabase() {
         mUserDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
                 .allowMainThreadQueries()
                 .build().getUserDao();
+    }
+
+    private void getPostDatabase() {
+        mPostDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
+                .allowMainThreadQueries()
+                .build().getPostDao();
     }
 
     private void getPrefs() {

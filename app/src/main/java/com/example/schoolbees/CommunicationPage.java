@@ -96,12 +96,16 @@ public class CommunicationPage extends AppCompatActivity {
         if (mUserId != -1) {
             return;
         }
-        SharedPreferences preferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
-        mUserId = mPreferences.getInt(USER_ID_KEY, -1);
-        if (mPreferences == null) {
+        if(mPreferences == null){
             getPrefs();
         }
+
+        mUserId = mPreferences.getInt(USER_ID_KEY, -1);
+        if (mUserId != -1) {
+            return;
+        }
     }
+
 
     private void addUserToPreference(int userId) {
         if (mPreferences == null) {

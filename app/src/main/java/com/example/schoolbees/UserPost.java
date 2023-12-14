@@ -158,7 +158,7 @@ public class UserPost extends AppCompatActivity {
                         clearUserFromIntent();
                         clearUserFromPref();
                         mUserId = -1;
-                     //   checkForUser();
+                        checkForUser();
                         MainActivity();
                     }
                 });
@@ -215,6 +215,22 @@ public class UserPost extends AppCompatActivity {
     private void getPrefs() {
         mPreferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
     }
+
+    private void checkForUser() {
+        mUserId = getIntent().getIntExtra(USER_ID_KEY, -1);
+        if (mUserId != -1) {
+            return;
+        }
+        if(mPreferences == null){
+            getPrefs();
+        }
+
+        mUserId = mPreferences.getInt(USER_ID_KEY, -1);
+        if (mUserId != -1) {
+            return;
+        }
+    }
+
 
     public void MainActivity() {
         Intent intent = new Intent(this, MainActivity.class);

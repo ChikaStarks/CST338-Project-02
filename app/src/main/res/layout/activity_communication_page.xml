@@ -31,29 +31,36 @@
 
     <TextView
         android:id="@+id/communicationTitle"
-        android:layout_width="187dp"
-        android:layout_height="84dp"
-        android:layout_marginTop="112dp"
+        android:layout_width="204dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="96dp"
         android:gravity="center"
         android:scrollbars="vertical"
         android:text="Communication"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView20"
-        android:layout_width="308dp"
-        android:layout_height="449dp"
-        android:layout_marginTop="36dp"
-        android:hint="Display post title, contact name, and contact info."
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="307dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="24dp"
         android:scrollbars="vertical"
+        android:text="Display post title, contact name, and contact info."
         android:textSize="18sp"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/communicationTitle" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="300dp"
+        android:layout_height="383dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

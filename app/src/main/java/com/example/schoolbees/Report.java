@@ -5,35 +5,24 @@ import androidx.room.PrimaryKey;
 
 import com.example.schoolbees.DB.AppDataBase;
 
-@Entity(tableName = AppDataBase.POST_TABLE)
-public class Post {
-
+@Entity(tableName = AppDataBase.REPORT_TABLE)
+public class Report {
     @PrimaryKey(autoGenerate = true)
     private int mPostId;
-
-    private int mUserNumber;
     private String mPostname;
     private String mDescription;
     private String mPrice;
     private String mLocation;
     private String mContact;
 
-    public Post(String postname, String description, String price, String location, String contact) {
+    public Report(String postname, String description, String price, String location, String contact) {
+
         mPostname = postname;
         mDescription = description;
         mPrice = price;
         mLocation = location;
         mContact = contact;
     }
-
-
-    //    public Post(String title, String description, String price, String location, String contact) {
-//        mPostName = title;
-//        mDescription = description;
-//        mPrice = price;
-//        mLocation = location;
-//        mContact = contact;
-//    }
 
 
     public String getPostname() {
@@ -50,14 +39,6 @@ public class Post {
 
     public void setPostId(int postId) {
         mPostId = postId;
-    }
-
-    public int getUserNumber() {
-        return mUserNumber;
-    }
-
-    public void setUserNumber(int userNumber) {
-        mUserNumber = userNumber;
     }
 
     public String getDescription() {
@@ -94,7 +75,7 @@ public class Post {
 
     @Override
     public String toString() {
-        return "Post ID: " + mPostId + "\n" +
+        return "Report ID: " + mPostId + "\n" +
                 "Post Title: " + mPostname + "\n" +
                 "Description: " + mDescription + "\n" +
                 "Price: " + mPrice + "\n" +
@@ -102,4 +83,5 @@ public class Post {
                 "Contact Info: " + mContact + "\n" +
                 "********************" + "\n" + "\n";
     }
+
 }

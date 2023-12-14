@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.MapInfo;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -27,14 +28,26 @@ public interface PostDao {
     @Query("SELECT * FROM " + AppDataBase.POST_TABLE)
     List<Post> getAllPosts();
 
-//    @Query("SELECT * FROM " + AppDataBase.POST_TABLE)
-//    LiveData<List<Post>> getAllLivePosts();   // added live data
+    @Query("SELECT * FROM " + AppDataBase.POST_TABLE)
+    LiveData<List<Post>> getAllLivePosts();   // added live data
 
     @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostId = :postId ")
     Post getPostByPostId(int postId);
 
     @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostname = :postname ")
-    Post getPostByPostname(String postname);
+    List<Post> getPostByPostname(String postname);
+
+    @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostname = :postname ")
+    Post getOnePostByPostname(String postname);
+
+    @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostId = :postId ")
+    List<Post> getMatchedPostByPostId (int postId);
+
+    @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mUserNumber = :userId ")
+    List<Post> getPostBymUserId(int userId);
+
+//    @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostId IN (:postId) ")
+//    public List<Post> getMatchedPostIDasInput (List<Integer> postId);
 }
 
 

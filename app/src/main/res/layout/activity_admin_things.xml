@@ -46,8 +46,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:layout_width="332dp"
-        android:layout_height="433dp"
+        android:layout_width="307dp"
+        android:layout_height="539dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,12 +59,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Users Info"
-            android:textSize="14sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView15"
             android:layout_width="match_parent"
-            android:layout_height="191dp"
+            android:layout_height="242dp"
             android:hint="List all users."
             android:scrollbars="vertical" />
 
@@ -73,12 +74,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Active Posts"
-            android:textSize="14sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView17"
             android:layout_width="match_parent"
-            android:layout_height="196dp"
+            android:layout_height="248dp"
             android:hint="List all posts."
             android:scrollbars="vertical" />
 

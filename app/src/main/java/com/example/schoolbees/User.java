@@ -54,4 +54,13 @@ public class User {
     public void setIsAdmin(String isAdmin) {
         mIsAdmin = isAdmin;
     }
+
+    @Override
+    public String toString() {
+        return "User ID: " + mUserId + "\n" +
+                "Username: '" + mUserName + "\n" +
+                "IsAdmin: '" + mIsAdmin + "\n" +
+                "********************" + "\n" + "\n";
+    }
+
 }

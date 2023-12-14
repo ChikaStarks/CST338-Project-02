@@ -24,14 +24,6 @@ public interface UserDao {
     @Delete
     void delete(User user);
 
-//    @Insert
-//    void insert(Post... posts);
-//
-//    @Update
-//    void update(Post... posts);
-//
-//    @Delete
-//    void delete(Post post);
 
     @Query("SELECT * FROM " + AppDataBase.USER_TABLE2)
     List<User> getAllUsers();
@@ -41,17 +33,6 @@ public interface UserDao {
 
     @Query("SELECT * FROM " + AppDataBase.USER_TABLE2 + " WHERE mUserId = :userId")
     User getUserByUserId(int userId);
-
-    // need to check this error
-//    @Query("SELECT * FROM " + AppDataBase.POST_TABLE)
-//    List<Post> getAllPosts();
-//
-//    @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostId = :postId ")
-//    User getPostByPostId(int postId);
-//
-//    @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostName = :postname ")
-//    User getPostByPostname(String postname);
-
 
 
 }

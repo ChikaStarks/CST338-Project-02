@@ -244,14 +244,9 @@ public class PostSearch extends AppCompatActivity {
 
     }
 
-    private void checkDuplicateReportfromSameUser(){
-        //how can i check if the user reported the post to avoid multiple reports on the same post id..??
-    }
-
     private void showReportConfirmation(){
         Toast.makeText(this, "The post has been reported!", Toast.LENGTH_SHORT).show();
     }
-
 
 
     private boolean searchPostId(){
@@ -264,19 +259,26 @@ public class PostSearch extends AppCompatActivity {
             return false;
         }
 
-        try{
-            Log.d("ID","check mPostID " + mPostID); //testing purpose only
-            mPostId = Integer.parseInt(mEnterIDField.getText().toString());
-            if (mPostID == null){
-                Toast.makeText(this, "No matching Post ID \"" + mPostId +
-                        "\" is found.", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }catch (NumberFormatException e){
-            Log.d("Int", "Unable to convert to string.");
-            Toast.makeText(this, "Please enter a numerical value only.", Toast.LENGTH_SHORT).show();
+        mPostId = Integer.parseInt(mEnterIDField.getText().toString());
+        mPostID = mPostDao.getPostByPostId(mPostId);
+        if (mPostID == null){
+            Toast.makeText(this, "No matching Post ID \"" + mPostId +
+                    "\" is found.", Toast.LENGTH_SHORT).show();
             return false;
         }
+//        try{
+//            Log.d("ID","check mPostID " + mPostID); //testing purpose only
+//            mPostId = Integer.parseInt(mEnterIDField.getText().toString());
+//            if (mPostID == null){
+//                Toast.makeText(this, "No matching Post ID \"" + mPostId +
+//                        "\" is found.", Toast.LENGTH_SHORT).show();
+//                return false;
+//            }
+//        }catch (NumberFormatException e){
+//            Log.d("Int", "Unable to convert to string.");
+//            Toast.makeText(this, "Please enter a numerical value only.", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
         mPostId = Integer.parseInt(mEnterIDField.getText().toString());
 
         return true;

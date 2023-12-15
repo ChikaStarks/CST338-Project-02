@@ -254,8 +254,6 @@ public class UserPost extends AppCompatActivity {
     }
 
 
-
-
     //Learned about binding
         private void refreshDisplay () {
             mPostList = mPostDao.getAllPosts();

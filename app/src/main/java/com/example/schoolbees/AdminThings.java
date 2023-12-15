@@ -157,6 +157,7 @@ public class AdminThings extends AppCompatActivity {
 
         try{
             mPostId = Integer.parseInt(mEnterIDField.getText().toString());
+            mPostID = mPostDao.getPostByPostId(mPostId);
             Log.d("ID","check mPostID " + mPostID); //testing purpose only
             if (mPostID == null){
                 Toast.makeText(this, "No matching Post ID \"" + mPostId +
@@ -171,6 +172,7 @@ public class AdminThings extends AppCompatActivity {
 
         return true;
     }
+
 
     private void deleteFunction(int postId){
 

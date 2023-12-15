@@ -30,7 +30,7 @@ public class ContactInfo extends AppCompatActivity {
     private String mEmailInput;
 
     private Contact mContact;
-    private int mPhoneInput;
+    private int mPhoneInput = -1;
     private int mPhoneInputLength;
     EditText mNameInputField;
     EditText mEmailInputField;
@@ -88,47 +88,29 @@ public class ContactInfo extends AppCompatActivity {
     private void getValuesFromDisplay(){
         mNameInput = mNameInputField.getText().toString();
         mEmailInput = mEmailInputField.getText().toString();
-        mPhoneInput = Integer.parseInt(mPhoneInputField.getText().toString());
+        try {
+        mPhoneInput = Integer.parseInt(mPhoneInputField.getText().toString());}
+        catch (NumberFormatException e) {
+        }
     }
 
 
-    //mPostIdLength = mEnterIDField.getText().length();
-    private boolean checkInput(){
-        if (mNameInput.isEmpty()){
+    private boolean checkInput() {
+        if (mNameInput.isEmpty()) {
             Toast.makeText(this, "Please enter your name.", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-//        Intent intent = LoginActivity.intentFactory(this);
-//        startActivity(intent);
-//
-//       // if(!mNameInput.matches(mUser.getUserName())){
-//        if(mUser.getUserName().contains(mNameInput)){
-//         //   if(mUser.getUserName().equals(mNameInput)){
-//     //   if(mNameInput != mUser.getUserName()){
-////        String name = mUser.getUserName();
-////        if (!mNameInput.equals(name)){
-//            Log.d("user", mUser.getUserName());
-//            Toast.makeText(this, "Please enter your username.", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-        if (mEmailInput.isEmpty()){
-            Toast.makeText(this,"Please enter your email address.", Toast.LENGTH_SHORT).show();
+        if (mEmailInput.isEmpty()) {
+            Toast.makeText(this, "Please enter your email address.", Toast.LENGTH_SHORT).show();
             return false;
         }
-       //TODO if phone number field is empty, app crash
-        // (only title & phone // title, phone, email are filled, it works)
-        try {
-            mPhoneInputLength = mPhoneInputField.getText().length();
-            Log.d("phonelength", mPhoneInputField.getText().toString());
-            if (mPhoneInputLength == 0) {
-                Toast.makeText(this, "Please enter your phone number.", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-        }catch (NumberFormatException e) {
-            Log.d("Int", "phone number error...");
+
+        mPhoneInputLength = mPhoneInputField.getText().toString().length();
+        if (mPhoneInputLength == 0) {
+            Toast.makeText(this, "Please enter your phone number.", Toast.LENGTH_SHORT).show();
+            return false;
         }
-     //   if((mNameInput.isEmpty()) && mEmailInput.isEmpty())
         return true;
     }
 
@@ -141,9 +123,9 @@ public class ContactInfo extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 try{
-                    int phone = Integer.parseInt(mPhoneInputField.getText().toString());
                     String name = mNameInputField.getText().toString();
                     String email = mEmailInputField.getText().toString();
+                    int phone = Integer.parseInt(mPhoneInputField.getText().toString());
 
                     Contact newContact = new Contact(name, email, phone);
                     mContactDao.insert(newContact);

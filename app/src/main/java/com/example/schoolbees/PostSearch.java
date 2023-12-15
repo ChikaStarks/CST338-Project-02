@@ -2,7 +2,6 @@ package com.example.schoolbees;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.room.Room;
 
 import android.content.Context;
@@ -20,16 +19,12 @@ import android.widget.Toast;
 
 import com.example.schoolbees.DB.AppDataBase;
 import com.example.schoolbees.DB.ContactDao;
-import com.example.schoolbees.DB.InquiryDao;
 import com.example.schoolbees.DB.PostDao;
 import com.example.schoolbees.DB.ReportDao;
 import com.example.schoolbees.DB.UserDao;
 import com.example.schoolbees.databinding.ActivityPostSearchBinding;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class PostSearch extends AppCompatActivity {
 
@@ -67,7 +62,6 @@ public class PostSearch extends AppCompatActivity {
 
     private ReportDao mReportDao;
 
-    private InquiryDao mInquiryDao;
 
     private ContactDao mContactDao;
 
@@ -155,18 +149,12 @@ public class PostSearch extends AppCompatActivity {
     }
 
     private boolean checkMatch() {
-
-        //TODO need to check : if I enter number, or the word that is not a match, it crash
+        mPost = mPostDao.getOnePostByPostname(mPostname);
         mPostList = mPostDao.getPostByPostname(mPostname);
         if (mPostname.isEmpty()) {
             Toast.makeText(this, "Please enter keyword.", Toast.LENGTH_SHORT).show();
             return false;
         }
-
-//        int input = Integer.parseInt(mPostname);
-//        mPost = mPostDao.getPostByPostId(input);
-        mPost = mPostDao.getOnePostByPostname(mPostname);
-        Log.d("mPost", mPost.toString());
         if (mPost == null) {
             Toast.makeText(this, "No matching post \"" + mPostname + "\" found.", Toast.LENGTH_SHORT).show();
             return false;
@@ -265,8 +253,10 @@ public class PostSearch extends AppCompatActivity {
     }
 
 
+
     private boolean searchPostId(){
         mPostIdLength = mEnterIDField.getText().length();
+
         Log.d("post", mEnterIDField.getText().toString());
         mPostID = mPostDao.getPostByPostId(mPostId);
         if(mPostIdLength == 0){
@@ -287,6 +277,7 @@ public class PostSearch extends AppCompatActivity {
             Toast.makeText(this, "Please enter a numerical value only.", Toast.LENGTH_SHORT).show();
             return false;
         }
+        mPostId = Integer.parseInt(mEnterIDField.getText().toString());
 
         return true;
     }

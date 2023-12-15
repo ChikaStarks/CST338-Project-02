@@ -147,7 +147,6 @@ public class LandingPage extends AppCompatActivity {
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openUserCheck();
                 openPostSearch();
 
             }
@@ -213,14 +212,6 @@ public class LandingPage extends AppCompatActivity {
         Intent intent = new Intent(this, UserPost.class);
         startActivity(intent);
     }
-
-
-    public void openUserCheck(){
-        Intent intent = new Intent(this, UserCheck.class);
-        startActivity(intent);
-    }
-
-
 
 
     public void openUserManage(){

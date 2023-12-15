@@ -253,15 +253,7 @@ public class UserPost extends AppCompatActivity {
         return true;
     }
 
-    public void openUserCheck() {
-        Intent intent = new Intent(this, UserCheck.class);
-        startActivity(intent);
-    }
 
-    public static Intent intentFactory(UserCheck userCheck) {
-        Intent intent = new Intent(userCheck, UserPost.class);
-        return intent;
-    }
 
 
     //Learned about binding

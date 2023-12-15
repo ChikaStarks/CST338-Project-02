@@ -116,7 +116,8 @@ public class ContactInfo extends AppCompatActivity {
             Toast.makeText(this,"Please enter your email address.", Toast.LENGTH_SHORT).show();
             return false;
         }
-       //TODO something is wrong with email input check
+       //TODO if phone number field is empty, app crash
+        // (only title & phone // title, phone, email are filled, it works)
         try {
             mPhoneInputLength = mPhoneInputField.getText().length();
             Log.d("phonelength", mPhoneInputField.getText().toString());

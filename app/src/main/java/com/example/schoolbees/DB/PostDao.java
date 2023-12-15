@@ -40,8 +40,6 @@ public interface PostDao {
     @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostname = :postname ")
     Post getOnePostByPostname(String postname);
 
-    @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostId = :postId ")
-    List<Post> getMatchedPostByPostId (int postId);
 
     @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mUserNumber = :userId ")
     List<Post> getPostBymUserId(int userId);

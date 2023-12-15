@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 11,
-    "identityHash": "21ed25dcb16e56ade4026424083b4978",
+    "identityHash": "6384ced7f58b372909d6ee4e01b4a88d",
     "entities": [
       {
         "tableName": "USER_TABLE2",
@@ -200,11 +200,23 @@
       },
       {
         "tableName": "CONTACT_TABLE",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mPostId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mName` TEXT, `mEmail` TEXT, `mPhone` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mPostId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `mContactId` INTEGER NOT NULL, `mUserId` INTEGER NOT NULL, `mName` TEXT, `mEmail` TEXT, `mPhone` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "mPostId",
             "columnName": "mPostId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mContactId",
+            "columnName": "mContactId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mUserId",
+            "columnName": "mUserId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -240,7 +252,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '21ed25dcb16e56ade4026424083b4978')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6384ced7f58b372909d6ee4e01b4a88d')"
     ]
   }
 }

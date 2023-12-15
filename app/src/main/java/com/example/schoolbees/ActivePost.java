@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.schoolbees.DB.AppDataBase;
 import com.example.schoolbees.DB.PostDao;
+import com.example.schoolbees.DB.ReportDao;
 import com.example.schoolbees.DB.UserDao;
 import com.example.schoolbees.databinding.ActivityActivePostBinding;
 
@@ -37,10 +39,14 @@ public class ActivePost extends AppCompatActivity {
 
 
     private PostDao mPostDao;
+
+    private ReportDao mReportDao;
     private Post mPost;
     private String mPostname;
     private TextView mDisplayPosts;
     List<Post> mPostList;
+
+    List<Report> mReportList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +56,16 @@ public class ActivePost extends AppCompatActivity {
         mActivityActivePostBinding = ActivityActivePostBinding.inflate(getLayoutInflater());
         setContentView(mActivityActivePostBinding.getRoot());
 
+        mDisplay = mActivityActivePostBinding.textView9;
+
+        mDisplay.setMovementMethod(new ScrollingMovementMethod());
+
         getUserDatabase();
-        getPostDatabase();
-        checkMatch();
-        showPosts();
+        getReportDatabase();
+        reportCheck();
+
+        showAllReports();
+
 
         //Sign Out Button
         SignOutButton = findViewById(R.id.signOutButton);
@@ -73,7 +85,8 @@ public class ActivePost extends AppCompatActivity {
             }
         });
 
-        mDisplay = findViewById(R.id.textView9);
+      //  mDisplay = findViewById(R.id.textView9);
+
 
     }
 
@@ -142,21 +155,24 @@ public class ActivePost extends AppCompatActivity {
         editor.apply();
     }
 
-    private boolean checkMatch() {
-        mPostList = mPostDao.getPostBymUserId(mUserNumber);
-        if (mPostList.isEmpty()) {
-            Toast.makeText(this, "You have no active post.", Toast.LENGTH_SHORT).show();
+    private boolean reportCheck() {
+        mReportList = mReportDao.getAllReports();
+        if(mReportList.isEmpty()){
+            Toast.makeText(this,"There is no report, yet.",Toast.LENGTH_SHORT).show();
             return false;
         }
+
         return true;
+
     }
 
-    private void showPosts() {
-        mPostList = mPostDao.getPostBymUserId(mUserNumber);
-        mDisplay.setText(mPostList.toString().replace("[", "")
+    private void showAllReports() {
+        mReportList = mReportDao.getAllReports();
+        mDisplay.setText(mReportList.toString().replace("[", "")
                 .replace("]", "").replace(",", ""));
-
     }
+
+
 
 
     private void getUserDatabase() {
@@ -169,6 +185,12 @@ public class ActivePost extends AppCompatActivity {
         mPostDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
                 .allowMainThreadQueries()
                 .build().getPostDao();
+    }
+
+    private void getReportDatabase() {
+        mReportDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
+                .allowMainThreadQueries()
+                .build().getReportDao();
     }
 
     private void getPrefs() {

@@ -11,16 +11,30 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.schoolbees.DB.AppDataBase;
+import com.example.schoolbees.DB.ContactDao;
+import com.example.schoolbees.DB.PostDao;
 import com.example.schoolbees.DB.UserDao;
+import com.example.schoolbees.databinding.ActivityCommunicationPageBinding;
+
+import java.util.List;
 
 public class CommunicationPage extends AppCompatActivity {
 
+    ActivityCommunicationPageBinding mActivityCommunicationPageBinding;
+
     private UserDao mUserDao;
+
+    private PostDao mPostDao;
+
+    private ContactDao mContactDao;
     private Button goBackButton;
     private Button SignOutButton; //logout button
+
+    private TextView mDisplay;
 
     private static final String USER_ID_KEY = "com.example.schoolbees.userIdKey";
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
@@ -28,10 +42,33 @@ public class CommunicationPage extends AppCompatActivity {
 
     private int mUserId = -1;
 
+    private int mPostId;
+    private Contact mContactID;
+    List<Post> mPostList;
+    List<Contact> mContactList;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_communication_page);//Sign Out Button
+        setContentView(R.layout.activity_communication_page);
+        mActivityCommunicationPageBinding = ActivityCommunicationPageBinding.inflate(getLayoutInflater());
+        setContentView(mActivityCommunicationPageBinding.getRoot());
+
+        mDisplay = mActivityCommunicationPageBinding.textView20;
+
+        wiredupdisplay();
+        getContactDatabase();
+        getPostDatabase();
+        showAllCommunication();
+        //showCommunication();
+
+    }//end of onCreate
+
+    private void wiredupdisplay(){
+
+        //Sign Out Button
         SignOutButton = findViewById(R.id.signOutButton3);
 
         SignOutButton.setOnClickListener(new View.OnClickListener() {
@@ -48,8 +85,53 @@ public class CommunicationPage extends AppCompatActivity {
                 goBackToPreviousPage();
             }
         });
+    }
+
+    private boolean postAndUserMatch(){
+        mPostList  = mPostDao.getPostBymUserId(mUserId);
+
+      //  if (postId )
+        return true;
+    }
+
+//    private boolean reportCheck() {
+//        mReportList = mReportDao.getAllReports();
+//        if(mReportList.isEmpty()){
+//            Toast.makeText(this,"There is no report, yet.",Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
+//
+//        return true;
+//
+//    }
+
+    private void showCommunication(){
+        //TODO
+        mContactID = mContactDao.getContactInfoByPostId(mPostId);
+        mDisplay.setText(mContactID.toString().replace("[", "")
+                .replace("]", "").replace(",", ""));
 
     }
+
+    private void showAllCommunication(){
+        //TODO
+        mContactList = mContactDao.getAllContactInfos();
+        mDisplay.setText(mContactList.toString().replace("[", "")
+                .replace("]", "").replace(",", ""));
+
+    }
+
+//    private void showAllReports() {
+//        mReportList = mReportDao.getAllReports();
+//        mDisplay.setText(mReportList.toString().replace("[", "")
+//                .replace("]", "").replace(",", ""));
+//    }
+
+//    private void showAllReports() {
+//        mReportList = mReportDao.getAllReports();
+//        mDisplay.setText(mReportList.toString().replace("[", "")
+//                .replace("]", "").replace(",", ""));
+//    }
 
     private void goBackToPreviousPage() {
         Intent intent = new Intent(this, LandingPage.class);
@@ -121,6 +203,21 @@ public class CommunicationPage extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build().getUserDao();
     }
+
+    private void getContactDatabase() {
+        mContactDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
+                .allowMainThreadQueries()
+                .build().getContactDao();
+    }
+
+    private void getPostDatabase() {
+        mPostDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
+                .allowMainThreadQueries()
+                .build().getPostDao();
+    }
+
+
+
 
     private void getPrefs() {
         mPreferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);

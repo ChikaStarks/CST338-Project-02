@@ -155,12 +155,17 @@ public class PostSearch extends AppCompatActivity {
     }
 
     private boolean checkMatch() {
-        mPost = mPostDao.getOnePostByPostname(mPostname);
+
         mPostList = mPostDao.getPostByPostname(mPostname);
         if (mPostname.isEmpty()) {
             Toast.makeText(this, "Please enter keyword.", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+//        int input = Integer.parseInt(mPostname);
+//        mPost = mPostDao.getPostByPostId(input);
+        mPost = mPostDao.getOnePostByPostname(mPostname);
+        Log.d("mPost", mPost.toString());
         if (mPost == null) {
             Toast.makeText(this, "No matching post \"" + mPostname + "\" found.", Toast.LENGTH_SHORT).show();
             return false;
@@ -259,12 +264,10 @@ public class PostSearch extends AppCompatActivity {
     }
 
 
-
     private boolean searchPostId(){
-        mPostId = Integer.parseInt(mEnterIDField.getText().toString());
         mPostIdLength = mEnterIDField.getText().length();
+        Log.d("post", mEnterIDField.getText().toString());
         mPostID = mPostDao.getPostByPostId(mPostId);
-        //TODO empty option is not working.
         if(mPostIdLength == 0){
             Toast.makeText(this, "Please enter the Post ID.", Toast.LENGTH_SHORT).show();
             return false;
@@ -272,6 +275,7 @@ public class PostSearch extends AppCompatActivity {
 
         try{
             Log.d("ID","check mPostID " + mPostID); //testing purpose only
+            mPostId = Integer.parseInt(mEnterIDField.getText().toString());
             if (mPostID == null){
                 Toast.makeText(this, "No matching Post ID \"" + mPostId +
                         "\" is found.", Toast.LENGTH_SHORT).show();

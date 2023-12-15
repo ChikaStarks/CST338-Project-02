@@ -11,8 +11,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,13 +34,22 @@ public class AdminThings extends AppCompatActivity {
     private int mUserId = -1;
     private static final String USER_ID_KEY = "com.example.schoolbees.userIdKey";
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
+
     private SharedPreferences mPreferences = null;
     private User mUser;
     private Post mPost;
 
+    private int mPostId = -1;
+
+    private Post mPostID;
+
+    private int mPostIdLength;
+
     private String mUsername;
 
     private String mPostname;
+
+    private EditText mEnterIDField;
 
     private TextView mDisplayUsers;
     private TextView mDisplayPosts;
@@ -46,6 +57,8 @@ public class AdminThings extends AppCompatActivity {
     private Button goBackButton;
 
     private Button SignOutButton; //logout button
+
+    private Button mDeleteButton;
 
     List<Post> mPostList;
     List<User> mUserList;
@@ -80,6 +93,8 @@ public class AdminThings extends AppCompatActivity {
         mDisplayUsers = mActivityAdminThingsBinding.textView15;
         mDisplayUsers.setMovementMethod(new ScrollingMovementMethod());
 
+        mEnterIDField = mActivityAdminThingsBinding.editTextText5;
+
         //Sign Out Button
         SignOutButton = findViewById(R.id.SignOutButton);
 
@@ -95,6 +110,19 @@ public class AdminThings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goBackToPreviousPage();
+            }
+        });
+
+        mDeleteButton = findViewById(R.id.button13);
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(searchPostId()){
+
+                    deleteFunction(mPostId);
+//                    mPost = mPostDao.getPostByPostId(mPostId);
+//                    mPostDao.delete(mPost);
+                }
             }
         });
 
@@ -118,12 +146,70 @@ public class AdminThings extends AppCompatActivity {
         }
     }
 
+    private boolean searchPostId(){
+
+        mPostIdLength = mEnterIDField.getText().length();
+        mPostID = mPostDao.getPostByPostId(mPostId);
+        if(mPostIdLength == 0){
+            Toast.makeText(this, "Please enter the Post ID.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        try{
+            mPostId = Integer.parseInt(mEnterIDField.getText().toString());
+            Log.d("ID","check mPostID " + mPostID); //testing purpose only
+            if (mPostID == null){
+                Toast.makeText(this, "No matching Post ID \"" + mPostId +
+                        "\" is found.", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }catch (NumberFormatException e){
+            Log.d("Int", "Unable to convert to string.");
+            Toast.makeText(this, "Please enter a numerical value only.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void deleteFunction(int postId){
+
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+
+        alertBuilder.setMessage("Do you want to delete this post ID: " + mPostID.getPostId() + ", Post Title: "
+                + mPostID.getPostname() + "?");
+
+        alertBuilder.setPositiveButton("Yes",
+                new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Integer post_id = mPostID.getPostId();
+                            Toast.makeText(AdminThings.this, "The post has been deleted.", Toast.LENGTH_SHORT).show();
+                            //mPostId = Integer.parseInt(mEnterIDField.getText().toString());
+                            mPost = mPostDao.getPostByPostId(postId);
+                            mPostDao.delete(mPost);
+                        }
+                    });
 
 
+//        mUser = mUserDao.getUserByUserId(userId);
+//        mUserDao.delete(mUser);
+
+        alertBuilder.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+        alertBuilder.create().show();
+
+        }
 
 
-
-
+//    private void showDeleteConfirmation(){
+//        Toast.makeText(this, "The post has been deleted.", Toast.LENGTH_SHORT).show();
+//    }
 
 
     private void goBackToPreviousPage(){

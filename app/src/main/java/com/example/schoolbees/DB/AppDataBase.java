@@ -16,7 +16,7 @@ import com.example.schoolbees.User;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {User.class, Post.class, Report.class, Inquiry.class, Contact.class}, version = 11)
+@Database(entities = {User.class, Post.class, Report.class, Inquiry.class, Contact.class}, version = 12)
 public abstract class AppDataBase extends RoomDatabase{
 
     public static final String DATABASE_NAME = "schoolbees.DB";

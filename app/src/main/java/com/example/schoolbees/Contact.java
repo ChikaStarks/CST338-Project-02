@@ -1,14 +1,21 @@
 package com.example.schoolbees;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 import com.example.schoolbees.DB.AppDataBase;
 
 @Entity(tableName = AppDataBase.CONTACT_TABLE)
 public class Contact {
-    @PrimaryKey(autoGenerate = true)
+//    @PrimaryKey(autoGenerate = true)
+//    private int mContactId;
+@PrimaryKey(autoGenerate = true)
     private int mPostId;
+
+    //private int mPostId;
+
+    private int mUserId;
 
     private String mName;
     private String mEmail;
@@ -27,6 +34,22 @@ public class Contact {
 
     public void setPostId(int postId) {
         mPostId = postId;
+    }
+
+//    public int getContactId() {
+//        return mContactId;
+//    }
+//
+//    public void setContactId(int contactId) {
+//        mContactId = contactId;
+//    }
+
+    public int getUserId() {
+        return mUserId;
+    }
+
+    public void setUserId(int userId) {
+        mUserId = userId;
     }
 
     public String getName() {

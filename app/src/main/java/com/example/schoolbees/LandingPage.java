@@ -42,7 +42,7 @@ public class LandingPage extends AppCompatActivity {
     private Button manageButton; //button6
     private Button SignOutButton; //logout button
 
-    private Button mAlert; //Alert button
+    private Button mDeleteButton; //Alert button
 
     private EditText mUsernameField;
 
@@ -51,6 +51,7 @@ public class LandingPage extends AppCompatActivity {
 
     private Button mDeleteUser;
 
+    private Button mReport;
     private String mUsername;
     private String mPassword;
 
@@ -102,13 +103,7 @@ public class LandingPage extends AppCompatActivity {
             mAdmin.setVisibility(View.GONE);
         }
 
-        mAlert = findViewById(R.id.adminAlertButton);
 
-        if(mUser != null && mUser.getUserName().equals("admin2") || mUser != null && mUser.getUserName().equals("admin3")  ) {
-            mAlert.setVisibility(View.VISIBLE);
-        }else{
-            mAlert.setVisibility(View.GONE);
-        }
 
 
         mAdminThings = findViewById(R.id.AdminThingsButton);
@@ -117,6 +112,13 @@ public class LandingPage extends AppCompatActivity {
             mAdminThings.setVisibility(View.VISIBLE);
         }else{
             mAdminThings.setVisibility(View.GONE);
+        }
+
+        mReport = findViewById(R.id.button14);
+        if(mUser != null && mUser.getUserName().equals("admin2") || mUser != null && mUser.getUserName().equals("admin3")) {
+            mReport.setVisibility(View.VISIBLE);
+        }else{
+            mReport.setVisibility(View.GONE);
         }
 
         //Sign Out Button
@@ -160,13 +162,13 @@ public class LandingPage extends AppCompatActivity {
             }
         });
 
-        mAlert = findViewById(R.id.adminAlertButton);
-        mAlert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openAlert();
-            }
-        });
+//        mDeleteButton = findViewById(R.id.adminAlertButton);
+//        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
         mAdminThings = findViewById(R.id.AdminThingsButton);
         mAdminThings.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +177,16 @@ public class LandingPage extends AppCompatActivity {
                 openAdminThingsPage();
             }
         });
+
+        mReport = findViewById(R.id.button14);
+        mReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openReportPage();
+            }
+        });
+
+
 
         goBackButton = findViewById(R.id.buttonBack);
         goBackButton.setOnClickListener(new View.OnClickListener() {
@@ -216,10 +228,10 @@ public class LandingPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openAlert(){
-        Intent intent = new Intent(this, AdminAlert.class);
-        startActivity(intent);
-    }
+//    public void openDeletionPage(){
+//        Intent intent = new Intent(this, LandingPage.class);
+//        startActivity(intent);
+//    }
 
     private void loginUser (int userId){
         mUser = mUserDao.getUserByUserId(userId);
@@ -380,6 +392,11 @@ public class LandingPage extends AppCompatActivity {
 
     public void openAdminThingsPage(){
         Intent intent = new Intent(this, AdminThings.class);
+        startActivity(intent);
+    }
+
+    public void openReportPage(){
+        Intent intent = new Intent(this, ActivePost.class);
         startActivity(intent);
     }
 

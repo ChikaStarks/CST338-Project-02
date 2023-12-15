@@ -8,6 +8,7 @@ import androidx.room.Room;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +26,8 @@ public class ContactInfo extends AppCompatActivity {
     private ContactDao mContactDao;
     private String mNameInput;
     private String mEmailInput;
+
+    private Contact mContact;
     private int mPhoneInput;
     private int mPhoneInputLength;
     EditText mNameInputField;
@@ -32,6 +35,8 @@ public class ContactInfo extends AppCompatActivity {
     EditText mPhoneInputField;
 
     Button mSendContactInfoButton;
+
+    private int mContactId = -1;
 
     Button mCancelButton;
 
@@ -54,25 +59,19 @@ public class ContactInfo extends AppCompatActivity {
         mEmailInputField = mActivityContactInfoBinding.editTextTextEmailAddress;
         mPhoneInputField = mActivityContactInfoBinding.editTextPhone;
         mSendContactInfoButton = mActivityContactInfoBinding.button11;
-        mCancelButton = mActivityContactInfoBinding.button12;
 
         mSendContactInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getValuesFromDisplay();
-                if(checkInput()){
+                  if(checkInput()){
                     sendButtonFunction();
                 }
 
             }
         });
 
-        mCancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                cancelButtonFunction();
-            }
-        });
+
 
     }
 
@@ -92,20 +91,27 @@ public class ContactInfo extends AppCompatActivity {
             Toast.makeText(this, "Please enter your name.", Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (mEmailInput.isEmpty()){
+            Toast.makeText(this,"Please enter your email address.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
        //TODO something is wrong with email input check
-        mPhoneInputLength = mPhoneInputField.getText().length();
-        if(mPhoneInputLength == 0){
-            if (mEmailInput.isEmpty()){
-                Toast.makeText(this,"Please enter at least one of your contact info.", Toast.LENGTH_SHORT).show();
+        try {
+            mPhoneInputLength = mPhoneInputField.getText().length();
+            Log.d("phonelength", mPhoneInputField.getText().toString());
+            if (mPhoneInputLength == 0) {
+                Toast.makeText(this, "Please enter your phone number.", Toast.LENGTH_SHORT).show();
                 return false;
             }
-        }
+        }catch (NumberFormatException e){
+            Log.d("Int", "phone number error...");
+            }
+
+
        // if((mNameInput.isEmpty()) && mEmailInput.isEmpty())
         return true;
     }
 
-    //        mPostId = Integer.parseInt(mEnterIDField.getText().toString());
-//        mPostIdLength = mEnterIDField.getText().length();
 
     private void sendButtonFunction(){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
@@ -114,13 +120,19 @@ public class ContactInfo extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String name = mNameInputField.getText().toString();
-                String email = mEmailInputField.getText().toString();
-                int phone = Integer.parseInt(mPhoneInputField.getText().toString());
+                try{
+                    int phone = Integer.parseInt(mPhoneInputField.getText().toString());
+                    String name = mNameInputField.getText().toString();
+                    String email = mEmailInputField.getText().toString();
 
-                Contact newContact = new Contact(name, email, phone);
-                mContactDao.insert(newContact);
-                showInquiryConfirmation();
+                    Contact newContact = new Contact(name, email, phone);
+                    mContactDao.insert(newContact);
+                    showInquiryConfirmation();}
+
+                catch (NumberFormatException e){
+                    Log.d("Int", "Unable to convert to string.");
+
+                }
             }
         });
 
@@ -133,26 +145,6 @@ public class ContactInfo extends AppCompatActivity {
         alertBuilder.create().show();
     }
 
-    private void cancelButtonFunction() {
-        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-
-        alertBuilder.setMessage("Are you sure to cancel?");
-
-        alertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                goBacktoPostSearchPage();
-            }
-        });
-
-        alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        alertBuilder.create().show();
-    }
 
     private void goBacktoPostSearchPage() {
         Intent intent = new Intent(this, PostSearch.class);

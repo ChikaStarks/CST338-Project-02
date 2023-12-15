@@ -59,29 +59,7 @@ public class UserManage extends AppCompatActivity {
             }
         });
 
-        communicationButton = findViewById(R.id. buttonCommunicate);
-        communicationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToCommunicationPage();
-            }
-        });
 
-        ActiveButton = findViewById(R.id.buttonActiveAd);
-        ActiveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToActivePage();
-            }
-        });
-
-        PastAdButton = findViewById(R.id.buttonPastAd);
-        PastAdButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPastAd();
-            }
-        });
 
     }
 

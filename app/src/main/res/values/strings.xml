@@ -60,6 +60,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="hello">hello</string>
     <string name="nope">nope</string>
+    <string name="delete_post">Delete Post</string>
 
 
 </resources>

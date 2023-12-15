@@ -24,8 +24,17 @@ public interface ContactDao {
     @Query("SELECT * FROM " + AppDataBase.CONTACT_TABLE)
     List<Contact> getAllContactInfos();
 
+//    @Query("SELECT * FROM " + AppDataBase.CONTACT_TABLE + " WHERE mContactId = :contactId ")
+//    Contact getContactInfoByContactId(int contactId);
+//
+//    @Query("SELECT * FROM " + AppDataBase.CONTACT_TABLE + " WHERE mContactId = :contactId ")
+//    List<Contact> getAllContactInfosByContactId(int contactId);
+
     @Query("SELECT * FROM " + AppDataBase.CONTACT_TABLE + " WHERE mPostId = :postId ")
     Contact getContactInfoByPostId(int postId);
+
+//    @Query("SELECT * FROM " + AppDataBase.CONTACT_TABLE + " WHERE mPostId = :postId ")
+//    Contact getContactInfoBy(int postId);
 
     @Query("SELECT * FROM " + AppDataBase.CONTACT_TABLE + " WHERE mPostId = :postId ")
     List<Contact> getAllContactInfosByPostId(int postId);

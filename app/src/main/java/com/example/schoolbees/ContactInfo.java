@@ -127,7 +127,10 @@ public class ContactInfo extends AppCompatActivity {
 
                     Contact newContact = new Contact(name, email, phone);
                     mContactDao.insert(newContact);
-                    showInquiryConfirmation();}
+                    showInquiryConfirmation();
+                    goBacktoPostSearchPage();
+
+                }
 
                 catch (NumberFormatException e){
                     Log.d("Int", "Unable to convert to string.");
@@ -145,6 +148,10 @@ public class ContactInfo extends AppCompatActivity {
         alertBuilder.create().show();
     }
 
+    private void createContactId(){
+
+    }
+
 
     private void goBacktoPostSearchPage() {
         Intent intent = new Intent(this, PostSearch.class);
@@ -156,6 +163,11 @@ public class ContactInfo extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build()
                 .getContactDao();
+    }
+
+    private void goBackToPostSearchPage(){
+        Intent intent = new Intent (this, PostSearch.class);
+        startActivity(intent);
     }
 
 

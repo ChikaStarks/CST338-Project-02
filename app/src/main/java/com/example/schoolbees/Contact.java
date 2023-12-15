@@ -15,6 +15,8 @@ public class Contact {
 
     //private int mPostId;
 
+    private int mContactId;
+
     private int mUserId;
 
     private String mName;
@@ -36,13 +38,13 @@ public class Contact {
         mPostId = postId;
     }
 
-//    public int getContactId() {
-//        return mContactId;
-//    }
-//
-//    public void setContactId(int contactId) {
-//        mContactId = contactId;
-//    }
+    public int getContactId() {
+        return mContactId;
+    }
+
+    public void setContactId(int contactId) {
+        mContactId = contactId;
+    }
 
     public int getUserId() {
         return mUserId;

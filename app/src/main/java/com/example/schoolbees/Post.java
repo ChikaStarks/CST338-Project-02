@@ -11,6 +11,8 @@ public class Post {
     @PrimaryKey(autoGenerate = true)
     private int mPostId;
 
+    private int mUserId; //added
+
     private int mUserNumber;
     private String mPostname;
     private String mDescription;
@@ -50,6 +52,14 @@ public class Post {
 
     public void setPostId(int postId) {
         mPostId = postId;
+    }
+
+    public int getUserId() {
+        return mUserId;
+    }
+
+    public void setUserId(int userId) {
+        mUserId = userId;
     }
 
     public int getUserNumber() {

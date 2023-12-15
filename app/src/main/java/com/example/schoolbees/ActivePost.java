@@ -85,7 +85,6 @@ public class ActivePost extends AppCompatActivity {
             }
         });
 
-      //  mDisplay = findViewById(R.id.textView9);
 
 
     }

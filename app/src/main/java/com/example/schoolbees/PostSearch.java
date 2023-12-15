@@ -156,6 +156,7 @@ public class PostSearch extends AppCompatActivity {
 
     private boolean checkMatch() {
 
+        //TODO need to check : if I enter number, or the word that is not a match, it crash
         mPostList = mPostDao.getPostByPostname(mPostname);
         if (mPostname.isEmpty()) {
             Toast.makeText(this, "Please enter keyword.", Toast.LENGTH_SHORT).show();

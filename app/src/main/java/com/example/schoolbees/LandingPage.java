@@ -224,7 +224,7 @@ public class LandingPage extends AppCompatActivity {
 
 
     public void openUserManage(){
-        Intent intent = new Intent(this, UserManage.class);
+        Intent intent = new Intent(this, CommunicationPage.class);
         startActivity(intent);
     }
 

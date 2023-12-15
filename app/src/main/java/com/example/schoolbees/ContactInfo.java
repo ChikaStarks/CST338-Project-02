@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.schoolbees.DB.AppDataBase;
 import com.example.schoolbees.DB.ContactDao;
+import com.example.schoolbees.DB.UserDao;
 import com.example.schoolbees.databinding.ActivityContactInfoBinding;
 
 
@@ -24,6 +25,7 @@ public class ContactInfo extends AppCompatActivity {
     ActivityContactInfoBinding mActivityContactInfoBinding;
 
     private ContactDao mContactDao;
+    private UserDao mUserDao;
     private String mNameInput;
     private String mEmailInput;
 
@@ -33,6 +35,8 @@ public class ContactInfo extends AppCompatActivity {
     EditText mNameInputField;
     EditText mEmailInputField;
     EditText mPhoneInputField;
+
+    private User mUser;
 
     Button mSendContactInfoButton;
 
@@ -49,6 +53,7 @@ public class ContactInfo extends AppCompatActivity {
         setContentView(mActivityContactInfoBinding.getRoot());
 
         getContactDatabase();
+        getDatabase();
         wireupDisplay();
 
     }//end of onCreate
@@ -85,12 +90,28 @@ public class ContactInfo extends AppCompatActivity {
         mEmailInput = mEmailInputField.getText().toString();
         mPhoneInput = Integer.parseInt(mPhoneInputField.getText().toString());
     }
+
+
     //mPostIdLength = mEnterIDField.getText().length();
     private boolean checkInput(){
         if (mNameInput.isEmpty()){
             Toast.makeText(this, "Please enter your name.", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+//        Intent intent = LoginActivity.intentFactory(this);
+//        startActivity(intent);
+//
+//       // if(!mNameInput.matches(mUser.getUserName())){
+//        if(mUser.getUserName().contains(mNameInput)){
+//         //   if(mUser.getUserName().equals(mNameInput)){
+//     //   if(mNameInput != mUser.getUserName()){
+////        String name = mUser.getUserName();
+////        if (!mNameInput.equals(name)){
+//            Log.d("user", mUser.getUserName());
+//            Toast.makeText(this, "Please enter your username.", Toast.LENGTH_SHORT).show();
+//            return false;
+//        }
         if (mEmailInput.isEmpty()){
             Toast.makeText(this,"Please enter your email address.", Toast.LENGTH_SHORT).show();
             return false;
@@ -103,12 +124,10 @@ public class ContactInfo extends AppCompatActivity {
                 Toast.makeText(this, "Please enter your phone number.", Toast.LENGTH_SHORT).show();
                 return false;
             }
-        }catch (NumberFormatException e){
+        }catch (NumberFormatException e) {
             Log.d("Int", "phone number error...");
-            }
-
-
-       // if((mNameInput.isEmpty()) && mEmailInput.isEmpty())
+        }
+     //   if((mNameInput.isEmpty()) && mEmailInput.isEmpty())
         return true;
     }
 
@@ -148,9 +167,7 @@ public class ContactInfo extends AppCompatActivity {
         alertBuilder.create().show();
     }
 
-    private void createContactId(){
 
-    }
 
 
     private void goBacktoPostSearchPage() {
@@ -158,11 +175,21 @@ public class ContactInfo extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void getDatabase() {
+        mUserDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
+                .allowMainThreadQueries()
+                .build().getUserDao();
+    }
+
     private void getContactDatabase(){
         mContactDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
                 .allowMainThreadQueries()
                 .build()
                 .getContactDao();
+    }
+
+    private void usernameBinding(){
+
     }
 
     private void goBackToPostSearchPage(){

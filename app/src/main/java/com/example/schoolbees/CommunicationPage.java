@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class CommunicationPage extends AppCompatActivity {
 
     private TextView mDisplay;
 
+    private User mUser;
     private static final String USER_ID_KEY = "com.example.schoolbees.userIdKey";
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
     private SharedPreferences mPreferences = null;
@@ -57,6 +59,7 @@ public class CommunicationPage extends AppCompatActivity {
         setContentView(mActivityCommunicationPageBinding.getRoot());
 
         mDisplay = mActivityCommunicationPageBinding.textView20;
+        mDisplay.setMovementMethod(new ScrollingMovementMethod());
 
         wiredupdisplay();
         getContactDatabase();
@@ -94,30 +97,23 @@ public class CommunicationPage extends AppCompatActivity {
         return true;
     }
 
-//    private boolean reportCheck() {
-//        mReportList = mReportDao.getAllReports();
-//        if(mReportList.isEmpty()){
-//            Toast.makeText(this,"There is no report, yet.",Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//
-//        return true;
-//
-//    }
 
     private void showCommunication(){
-        //TODO
         mContactID = mContactDao.getContactInfoByPostId(mPostId);
         mDisplay.setText(mContactID.toString().replace("[", "")
                 .replace("]", "").replace(",", ""));
 
     }
 
+
     private void showAllCommunication(){
-        //TODO
         mContactList = mContactDao.getAllContactInfos();
         mDisplay.setText(mContactList.toString().replace("[", "")
                 .replace("]", "").replace(",", ""));
+
+    }
+
+    private void displayBinding(){
 
     }
 

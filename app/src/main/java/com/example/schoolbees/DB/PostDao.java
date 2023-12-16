@@ -44,8 +44,6 @@ public interface PostDao {
     @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mUserNumber = :userId ")
     List<Post> getPostBymUserId(int userId);
 
-//    @Query("SELECT * FROM " + AppDataBase.POST_TABLE + " WHERE mPostId IN (:postId) ")
-//    public List<Post> getMatchedPostIDasInput (List<Integer> postId);
 }
 
 

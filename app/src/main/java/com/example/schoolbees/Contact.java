@@ -8,17 +8,12 @@ import com.example.schoolbees.DB.AppDataBase;
 
 @Entity(tableName = AppDataBase.CONTACT_TABLE)
 public class Contact {
-//    @PrimaryKey(autoGenerate = true)
-//    private int mContactId;
+
 @PrimaryKey(autoGenerate = true)
     private int mPostId;
 
-    //private int mPostId;
-
     private int mContactId;
-
     private int mUserId;
-
     private String mName;
     private String mEmail;
     private int mPhone;

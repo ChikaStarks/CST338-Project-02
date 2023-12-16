@@ -28,21 +28,12 @@ public class ContactInfo extends AppCompatActivity {
     private UserDao mUserDao;
     private String mNameInput;
     private String mEmailInput;
-
-    private Contact mContact;
     private int mPhoneInput = -1;
     private int mPhoneInputLength;
     EditText mNameInputField;
     EditText mEmailInputField;
     EditText mPhoneInputField;
-
-    private User mUser;
-
     Button mSendContactInfoButton;
-
-    private int mContactId = -1;
-
-    Button mCancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +49,6 @@ public class ContactInfo extends AppCompatActivity {
 
     }//end of onCreate
 
-
     private void wireupDisplay() {
         mNameInputField = mActivityContactInfoBinding.editTextText4;
         mEmailInputField = mActivityContactInfoBinding.editTextTextEmailAddress;
@@ -72,14 +62,9 @@ public class ContactInfo extends AppCompatActivity {
                   if(checkInput()){
                     sendButtonFunction();
                 }
-
             }
         });
-
-
-
     }
-
 
     private void showInquiryConfirmation() {
         Toast.makeText(this, "Your contact info has been sent to the poster.", Toast.LENGTH_SHORT).show();
@@ -93,7 +78,6 @@ public class ContactInfo extends AppCompatActivity {
         catch (NumberFormatException e) {
         }
     }
-
 
     private boolean checkInput() {
         if (mNameInput.isEmpty()) {
@@ -114,7 +98,6 @@ public class ContactInfo extends AppCompatActivity {
         return true;
     }
 
-
     private void sendButtonFunction(){
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
         alertBuilder.setMessage("Are you sure to send your info?");
@@ -133,10 +116,8 @@ public class ContactInfo extends AppCompatActivity {
                     goBacktoPostSearchPage();
 
                 }
-
                 catch (NumberFormatException e){
                     Log.d("Int", "Unable to convert to string.");
-
                 }
             }
         });
@@ -144,14 +125,10 @@ public class ContactInfo extends AppCompatActivity {
         alertBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
             }
         });
         alertBuilder.create().show();
     }
-
-
-
 
     private void goBacktoPostSearchPage() {
         Intent intent = new Intent(this, PostSearch.class);
@@ -170,15 +147,4 @@ public class ContactInfo extends AppCompatActivity {
                 .build()
                 .getContactDao();
     }
-
-    private void usernameBinding(){
-
-    }
-
-    private void goBackToPostSearchPage(){
-        Intent intent = new Intent (this, PostSearch.class);
-        startActivity(intent);
-    }
-
-
 }

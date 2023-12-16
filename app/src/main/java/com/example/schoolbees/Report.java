@@ -16,14 +16,12 @@ public class Report {
     private String mContact;
 
     public Report(String postname, String description, String price, String location, String contact) {
-
         mPostname = postname;
         mDescription = description;
         mPrice = price;
         mLocation = location;
         mContact = contact;
     }
-
 
     public String getPostname() {
         return mPostname;

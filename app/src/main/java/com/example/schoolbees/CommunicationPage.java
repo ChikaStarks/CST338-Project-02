@@ -24,32 +24,22 @@ import com.example.schoolbees.databinding.ActivityCommunicationPageBinding;
 import java.util.List;
 
 public class CommunicationPage extends AppCompatActivity {
-
     ActivityCommunicationPageBinding mActivityCommunicationPageBinding;
 
     private UserDao mUserDao;
-
     private PostDao mPostDao;
-
     private ContactDao mContactDao;
     private Button goBackButton;
     private Button SignOutButton; //logout button
-
     private TextView mDisplay;
-
-    private User mUser;
     private static final String USER_ID_KEY = "com.example.schoolbees.userIdKey";
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
     private SharedPreferences mPreferences = null;
-
     private int mUserId = -1;
-
     private int mPostId;
     private Contact mContactID;
     List<Post> mPostList;
     List<Contact> mContactList;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,12 +55,9 @@ public class CommunicationPage extends AppCompatActivity {
         getContactDatabase();
         getPostDatabase();
         showAllCommunication();
-        //showCommunication();
-
     }//end of onCreate
 
     private void wiredupdisplay(){
-
         //Sign Out Button
         SignOutButton = findViewById(R.id.signOutButton3);
 
@@ -90,44 +77,11 @@ public class CommunicationPage extends AppCompatActivity {
         });
     }
 
-    private boolean postAndUserMatch(){
-        mPostList  = mPostDao.getPostBymUserId(mUserId);
-
-      //  if (postId )
-        return true;
-    }
-
-
-    private void showCommunication(){
-        mContactID = mContactDao.getContactInfoByPostId(mPostId);
-        mDisplay.setText(mContactID.toString().replace("[", "")
-                .replace("]", "").replace(",", ""));
-
-    }
-
-
     private void showAllCommunication(){
         mContactList = mContactDao.getAllContactInfos();
         mDisplay.setText(mContactList.toString().replace("[", "")
                 .replace("]", "").replace(",", ""));
-
     }
-
-    private void displayBinding(){
-
-    }
-
-//    private void showAllReports() {
-//        mReportList = mReportDao.getAllReports();
-//        mDisplay.setText(mReportList.toString().replace("[", "")
-//                .replace("]", "").replace(",", ""));
-//    }
-
-//    private void showAllReports() {
-//        mReportList = mReportDao.getAllReports();
-//        mDisplay.setText(mReportList.toString().replace("[", "")
-//                .replace("]", "").replace(",", ""));
-//    }
 
     private void goBackToPreviousPage() {
         Intent intent = new Intent(this, LandingPage.class);
@@ -136,7 +90,6 @@ public class CommunicationPage extends AppCompatActivity {
 
     private void logoutUser() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-
         alertBuilder.setMessage(R.string.log_out);
 
         alertBuilder.setPositiveButton(getString(R.string.yes),
@@ -150,11 +103,11 @@ public class CommunicationPage extends AppCompatActivity {
                         MainActivity();
                     }
                 });
+
         alertBuilder.setNegativeButton(getString(R.string.no),
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
         alertBuilder.create().show();
@@ -184,7 +137,6 @@ public class CommunicationPage extends AppCompatActivity {
         }
     }
 
-
     private void addUserToPreference(int userId) {
         if (mPreferences == null) {
             getPrefs();
@@ -192,12 +144,6 @@ public class CommunicationPage extends AppCompatActivity {
         SharedPreferences.Editor editor = mPreferences.edit();
         editor.putInt(USER_ID_KEY, userId);
         editor.apply();
-    }
-
-    private void getDatabase() {
-        mUserDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
-                .allowMainThreadQueries()
-                .build().getUserDao();
     }
 
     private void getContactDatabase() {
@@ -212,9 +158,6 @@ public class CommunicationPage extends AppCompatActivity {
                 .build().getPostDao();
     }
 
-
-
-
     private void getPrefs() {
         mPreferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
     }
@@ -224,5 +167,3 @@ public class CommunicationPage extends AppCompatActivity {
         startActivity(intent);
     }
 }
-
-//list the ad title, contact name, contact info

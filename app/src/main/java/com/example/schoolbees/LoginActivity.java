@@ -25,23 +25,15 @@ public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding mLoginBinding;
     private EditText mUsernameField;
     private EditText mPasswordField;
-
     private Button mButton;
     private Button MainPageButton1;
-
     private UserDao mUserDao;
-
     private String mUsername;
     private String mPassword;
-
     private int mUserID = -1;
-
     private SharedPreferences mPreferences = null;
-
     private User mUser;
-
     private Menu mOptionMenu;
-
 
 
     @Override
@@ -52,10 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         wireupDisplay();
         getDatabase();
 
-//        mLoginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
-//        setContentView(mLoginBinding.getRoot());
-
-        //main page button
     }// end of onCreate
 
     private void wireupDisplay(){
@@ -130,9 +118,4 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent3 = new Intent(this, MainActivity.class);
         startActivity(intent3);
     }
-    public void openLandingPage() {
-        Intent intent = new Intent(this, LandingPage.class);
-        startActivity(intent);
-    }
-
 }

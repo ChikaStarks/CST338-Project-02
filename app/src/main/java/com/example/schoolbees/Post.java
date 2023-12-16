@@ -7,12 +7,10 @@ import com.example.schoolbees.DB.AppDataBase;
 
 @Entity(tableName = AppDataBase.POST_TABLE)
 public class Post {
-
     @PrimaryKey(autoGenerate = true)
     private int mPostId;
 
     private int mUserId; //added
-
     private int mUserNumber;
     private String mPostname;
     private String mDescription;
@@ -28,20 +26,9 @@ public class Post {
         mContact = contact;
     }
 
-
-    //    public Post(String title, String description, String price, String location, String contact) {
-//        mPostName = title;
-//        mDescription = description;
-//        mPrice = price;
-//        mLocation = location;
-//        mContact = contact;
-//    }
-
-
     public String getPostname() {
         return mPostname;
     }
-
     public void setPostname(String postname) {
         mPostname = postname;
     }

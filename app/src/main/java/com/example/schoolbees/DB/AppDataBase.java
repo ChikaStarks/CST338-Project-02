@@ -11,7 +11,7 @@ import com.example.schoolbees.Post;
 import com.example.schoolbees.Report;
 import com.example.schoolbees.User;
 
-@Database(entities = {User.class, Post.class, Report.class, Contact.class}, version = 12)
+@Database(entities = {User.class, Post.class, Report.class, Contact.class}, version = 13)
 public abstract class AppDataBase extends RoomDatabase{
 
     public static final String DATABASE_NAME = "schoolbees.DB";
@@ -22,9 +22,6 @@ public abstract class AppDataBase extends RoomDatabase{
 
     public static final String CONTACT_TABLE = "CONTACT_TABLE";
 
-    //added for repository
-//    static final ExecutorService databaseWriteExecutor =
-//            Executors.newFixedThreadPool(Integer.parseInt(POST_TABLE));
     public abstract UserDao getUserDao();
     public abstract PostDao getPostDao();
     public abstract ReportDao getReportDao();

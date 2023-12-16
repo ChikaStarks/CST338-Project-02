@@ -27,52 +27,28 @@ import com.example.schoolbees.databinding.ActivityPostSearchBinding;
 import java.util.List;
 
 public class PostSearch extends AppCompatActivity {
-
     ActivityPostSearchBinding mActivityPostSearchBinding;
-
     private SharedPreferences mPreferences = null;
     private Button SignOutButton; //logout button
     private Button goBackButton;
     private int mUserId = -1;
     private static final String USER_ID_KEY = "com.example.schoolbees.userIdKey";
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
-    private UserDao mUserDao;
-
     private EditText mSearchField;
     private Button mSearchButton;
-
     private int mPostId;
-
     private TextView mResultDisplay;
-
     private EditText mEnterIDField;
     private Button mInterestedButton;
     private Button mReportButton;
-
-    private String matchedName;
-
     private String mPostname;
-
     private Post mPost;
     private Post mPostID;
-
     private int mPostIdLength;
-
     private PostDao mPostDao;
-
     private ReportDao mReportDao;
-
-
     private ContactDao mContactDao;
-
     List<Post> mPostList;
-
-
-    private String mPostIDString;
-
-    private int mSearchIdInputInt;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,8 +62,6 @@ public class PostSearch extends AppCompatActivity {
         getDatabase();
         getReportDatabase();
         getContactDatabase();
-
-
     }//end of onCreate
 
     private void wireupdisplay() {
@@ -100,9 +74,7 @@ public class PostSearch extends AppCompatActivity {
         mInterestedButton = mActivityPostSearchBinding.buttonInterested2;
 
         mResultDisplay = mActivityPostSearchBinding.textView22;
-
         mResultDisplay.setMovementMethod(new ScrollingMovementMethod());
-
 
         SignOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +106,6 @@ public class PostSearch extends AppCompatActivity {
                 if (searchPostId()){
                     reportPostButtonFunction();
                 }
-
             }
         });
 
@@ -159,7 +130,6 @@ public class PostSearch extends AppCompatActivity {
             Toast.makeText(this, "No matching post \"" + mPostname + "\" found.", Toast.LENGTH_SHORT).show();
             return false;
         }
-
         return true;
     }
 
@@ -167,11 +137,8 @@ public class PostSearch extends AppCompatActivity {
         mPostList = mPostDao.getPostByPostname(mPostname);
         mResultDisplay.setText(mPostList.toString().replace("[", "")
                 .replace("]", "").replace(",", ""));
-//        mPost = mPostDao.getPostByPostname(mPostname);
-//        mResultDisplay.setText(mPost.toString());
     }
     //reference: https://www.w3schools.com/sql/sql_select.asp
-
 
     private void refreshDisplay(){
         mResultDisplay.setText(null);
@@ -266,21 +233,7 @@ public class PostSearch extends AppCompatActivity {
                     "\" is found.", Toast.LENGTH_SHORT).show();
             return false;
         }
-//        try{
-//            Log.d("ID","check mPostID " + mPostID); //testing purpose only
-//            mPostId = Integer.parseInt(mEnterIDField.getText().toString());
-//            if (mPostID == null){
-//                Toast.makeText(this, "No matching Post ID \"" + mPostId +
-//                        "\" is found.", Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//        }catch (NumberFormatException e){
-//            Log.d("Int", "Unable to convert to string.");
-//            Toast.makeText(this, "Please enter a numerical value only.", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
         mPostId = Integer.parseInt(mEnterIDField.getText().toString());
-
         return true;
     }
 
@@ -296,7 +249,6 @@ public class PostSearch extends AppCompatActivity {
 
     private void logoutUser() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-
         alertBuilder.setMessage(R.string.log_out);
 
         alertBuilder.setPositiveButton(getString(R.string.yes),
@@ -314,7 +266,6 @@ public class PostSearch extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
         alertBuilder.create().show();
@@ -337,14 +288,11 @@ public class PostSearch extends AppCompatActivity {
         if(mPreferences == null){
             getPrefs();
         }
-
         mUserId = mPreferences.getInt(USER_ID_KEY, -1);
         if (mUserId != -1) {
             return;
         }
     }
-
-
 
     private void addUserToPreference(int userId){
         if (mPreferences == null){
@@ -354,12 +302,6 @@ public class PostSearch extends AppCompatActivity {
         editor.putInt(USER_ID_KEY, userId);
         editor.apply();
     }
-
-//    private void getDatabase() {
-//        mUserDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
-//                .allowMainThreadQueries()
-//                .build().getUserDao();
-//    }
 
     private void getDatabase() {
         mPostDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
@@ -378,7 +320,6 @@ public class PostSearch extends AppCompatActivity {
                 .allowMainThreadQueries()
                 .build().getContactDao();
     }
-
 
     private void getPrefs() {
         mPreferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);

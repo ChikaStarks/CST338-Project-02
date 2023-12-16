@@ -34,17 +34,12 @@ public class ActivePost extends AppCompatActivity {
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
     private UserDao mUserDao;
 
-    private int mUserNumber;
     private TextView mDisplay;
 
 
     private PostDao mPostDao;
 
     private ReportDao mReportDao;
-    private Post mPost;
-    private String mPostname;
-    private TextView mDisplayPosts;
-    List<Post> mPostList;
 
     List<Report> mReportList;
 
@@ -84,9 +79,6 @@ public class ActivePost extends AppCompatActivity {
                 goBackToPreviousPage();
             }
         });
-
-
-
     }
 
     private void goBackToPreviousPage(){
@@ -144,7 +136,6 @@ public class ActivePost extends AppCompatActivity {
         }
     }
 
-
     private void addUserToPreference(int userId){
         if (mPreferences == null){
             getPrefs();
@@ -160,9 +151,7 @@ public class ActivePost extends AppCompatActivity {
             Toast.makeText(this,"There is no report, yet.",Toast.LENGTH_SHORT).show();
             return false;
         }
-
         return true;
-
     }
 
     private void showAllReports() {
@@ -172,20 +161,13 @@ public class ActivePost extends AppCompatActivity {
     }
 
 
-
-
     private void getUserDatabase() {
         mUserDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
                 .allowMainThreadQueries()
                 .build().getUserDao();
     }
 
-    private void getPostDatabase() {
-        mPostDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
-                .allowMainThreadQueries()
-                .build().getPostDao();
-    }
-
+    
     private void getReportDatabase() {
         mReportDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
                 .allowMainThreadQueries()
@@ -200,5 +182,4 @@ public class ActivePost extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 }

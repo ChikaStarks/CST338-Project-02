@@ -21,6 +21,8 @@ import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity {
+
+    ActivityLoginBinding mLoginBinding;
     private EditText mUsernameField;
     private EditText mPasswordField;
     private Button mButton;
@@ -28,14 +30,20 @@ public class LoginActivity extends AppCompatActivity {
     private UserDao mUserDao;
     private String mUsername;
     private String mPassword;
+    private int mUserID = -1;
+    private SharedPreferences mPreferences = null;
     private User mUser;
+    private Menu mOptionMenu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         wireupDisplay();
         getDatabase();
+
     }// end of onCreate
 
     private void wireupDisplay(){

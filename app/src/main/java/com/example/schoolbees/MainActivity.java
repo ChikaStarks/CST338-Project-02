@@ -1,3 +1,11 @@
+/**
+ * App Title: School Bees
+ *
+ * Abstract: This app is for the project 2 assignment (CST338)
+ * Author: Chika Starks
+ * Date: 2023-12-15
+ */
+
 package com.example.schoolbees;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,10 +16,8 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-
     private Button logInButton; //LogIn Button (id: button)
     private Button newAccountButton; // Create New Account Button (id: button2)
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         logInButton = findViewById(R.id.button);
-
         logInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

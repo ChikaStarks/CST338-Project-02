@@ -62,5 +62,4 @@ public class User {
                 "IsAdmin: '" + mIsAdmin + "\n" +
                 "********************" + "\n" + "\n";
     }
-
 }

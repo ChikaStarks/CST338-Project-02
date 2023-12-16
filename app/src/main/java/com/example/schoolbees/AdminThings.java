@@ -36,7 +36,6 @@ public class AdminThings extends AppCompatActivity {
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
 
     private SharedPreferences mPreferences = null;
-    private User mUser;
     private Post mPost;
 
     private int mPostId = -1;
@@ -44,10 +43,6 @@ public class AdminThings extends AppCompatActivity {
     private Post mPostID;
 
     private int mPostIdLength;
-
-    private String mUsername;
-
-    private String mPostname;
 
     private EditText mEnterIDField;
 
@@ -63,8 +58,6 @@ public class AdminThings extends AppCompatActivity {
     List<Post> mPostList;
     List<User> mUserList;
 
-    LiveData<List<Post>> mLiveData; // tired to use Live data, didn't have enough time.
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,10 +71,6 @@ public class AdminThings extends AppCompatActivity {
         getPostDatabase();
         displayUsers();
         displayPosts();
-
-
-
-
 
     }//end of onCreate
 
@@ -118,14 +107,10 @@ public class AdminThings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(searchPostId()){
-
                     deleteFunction(mPostId);
-//                    mPost = mPostDao.getPostByPostId(mPostId);
-//                    mPostDao.delete(mPost);
                 }
             }
         });
-
     }
 
     public void displayUsers() {
@@ -147,14 +132,12 @@ public class AdminThings extends AppCompatActivity {
     }
 
     private boolean searchPostId(){
-
         mPostIdLength = mEnterIDField.getText().length();
         mPostID = mPostDao.getPostByPostId(mPostId);
         if(mPostIdLength == 0){
             Toast.makeText(this, "Please enter the Post ID.", Toast.LENGTH_SHORT).show();
             return false;
         }
-
         try{
             mPostId = Integer.parseInt(mEnterIDField.getText().toString());
             mPostID = mPostDao.getPostByPostId(mPostId);
@@ -169,15 +152,11 @@ public class AdminThings extends AppCompatActivity {
             Toast.makeText(this, "Please enter a numerical value only.", Toast.LENGTH_SHORT).show();
             return false;
         }
-
         return true;
     }
 
-
     private void deleteFunction(int postId){
-
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-
         alertBuilder.setMessage("Do you want to delete this post ID: " + mPostID.getPostId() + ", Post Title: "
                 + mPostID.getPostname() + "?");
 
@@ -193,26 +172,14 @@ public class AdminThings extends AppCompatActivity {
                         }
                     });
 
-
-//        mUser = mUserDao.getUserByUserId(userId);
-//        mUserDao.delete(mUser);
-
         alertBuilder.setNegativeButton("No",
                 new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-
                         }
                     });
         alertBuilder.create().show();
-
         }
-
-
-//    private void showDeleteConfirmation(){
-//        Toast.makeText(this, "The post has been deleted.", Toast.LENGTH_SHORT).show();
-//    }
-
 
     private void goBackToPreviousPage(){
         Intent intent = new Intent(this, LandingPage.class);
@@ -221,7 +188,6 @@ public class AdminThings extends AppCompatActivity {
 
     private void logoutUser() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-
         alertBuilder.setMessage(R.string.log_out);
 
         alertBuilder.setPositiveButton(getString(R.string.yes),
@@ -262,13 +228,11 @@ public class AdminThings extends AppCompatActivity {
         if(mPreferences == null){
             getPrefs();
         }
-
         mUserId = mPreferences.getInt(USER_ID_KEY, -1);
         if (mUserId != -1) {
             return;
         }
     }
-
 
     private void addUserToPreference(int userId){
         if (mPreferences == null){
@@ -299,8 +263,4 @@ public class AdminThings extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-
 }
-
-//maybe don't need this page

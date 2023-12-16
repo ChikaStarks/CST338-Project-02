@@ -34,41 +34,20 @@ public class LandingPage extends AppCompatActivity {
     ActivityLandingPageBinding mActivityLandingPageBinding;
     private static final String USER_ID_KEY = "com.example.schoolbees.userIdKey";
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
-
-
-
     private Button postButton; //button4
     private Button checkButton; //button5
     private Button manageButton; //button6
     private Button SignOutButton; //logout button
-
-    private Button mDeleteButton; //Alert button
-
-    private EditText mUsernameField;
-
     private Button mAdminThings; //Admin things button
     private Button goBackButton;
-
     private Button mDeleteUser;
-
     private Button mReport;
     private String mUsername;
-    private String mPassword;
-
-    private TextView welcomeName;
-
-
     private UserDao mUserDao;
-
     private int mUserId = -1;
-
     private SharedPreferences mPreferences = null;
     private User mUser;
     private TextView mAdmin;
-
-    private Menu mMenu;
-
-    //private RouteListingPreference.Item userMenuLogout;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -81,11 +60,6 @@ public class LandingPage extends AppCompatActivity {
         addUserToPreference(mUserId);
         loginUser(mUserId);
 
-
-//        mActivityLandingPageBinding = ActivityLandingPageBinding.inflate(getLayoutInflater());
-//        setContentView(mActivityLandingPageBinding.getRoot());
-
-
         mDeleteUser = findViewById(R.id.DeleteUser);
         mDeleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,18 +70,13 @@ public class LandingPage extends AppCompatActivity {
 
         //Admin button visibility
         mAdmin = findViewById(R.id.textView_admin);
-
         if(mUser != null && mUser.getUserName().equals("admin2")) {
             mAdmin.setVisibility(View.VISIBLE);
         }else{
             mAdmin.setVisibility(View.GONE);
         }
 
-
-
-
         mAdminThings = findViewById(R.id.AdminThingsButton);
-
         if(mUser != null && mUser.getUserName().equals("admin2") || mUser != null && mUser.getUserName().equals("admin3")) {
             mAdminThings.setVisibility(View.VISIBLE);
         }else{
@@ -123,7 +92,6 @@ public class LandingPage extends AppCompatActivity {
 
         //Sign Out Button
         SignOutButton = findViewById(R.id.SignOutButton);
-
         SignOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,7 +101,6 @@ public class LandingPage extends AppCompatActivity {
 
         //Post Button
         postButton = findViewById(R.id.button4);
-
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,31 +110,20 @@ public class LandingPage extends AppCompatActivity {
 
         //Check Button
         checkButton = findViewById(R.id.button5);
-
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openPostSearch();
-
             }
         });
 
         manageButton = findViewById(R.id.button6);
-
         manageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openUserManage();
             }
         });
-
-//        mDeleteButton = findViewById(R.id.adminAlertButton);
-//        mDeleteButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
 
         mAdminThings = findViewById(R.id.AdminThingsButton);
         mAdminThings.setOnClickListener(new View.OnClickListener() {
@@ -185,8 +141,6 @@ public class LandingPage extends AppCompatActivity {
             }
         });
 
-
-
         goBackButton = findViewById(R.id.buttonBack);
         goBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -194,14 +148,12 @@ public class LandingPage extends AppCompatActivity {
                 goBackToPreviousPage();
             }
         });
-
     }
 
     public void openPostSearch(){
         Intent intent = new Intent(this, PostSearch.class);
         startActivity(intent);
     }
-
 
     private void goBackToPreviousPage(){
         Intent intent = new Intent(this, LoginActivity.class);
@@ -213,21 +165,14 @@ public class LandingPage extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public void openUserManage(){
         Intent intent = new Intent(this, CommunicationPage.class);
         startActivity(intent);
     }
 
-//    public void openDeletionPage(){
-//        Intent intent = new Intent(this, LandingPage.class);
-//        startActivity(intent);
-//    }
-
     private void loginUser (int userId){
         mUser = mUserDao.getUserByUserId(userId);
         addUserToPreference(userId);
-     //   invalidateOptionsMenu();
         welcomeUserName();
     }
 
@@ -239,7 +184,6 @@ public class LandingPage extends AppCompatActivity {
         }
         return super.onPrepareOptionsMenu(menu);
     }
-
 
     public boolean welcomeUserName() {
         if(mUser != null){
@@ -258,13 +202,11 @@ public class LandingPage extends AppCompatActivity {
         editor.apply();
     }
 
-
     private void getDatabase() {
         mUserDao = Room.databaseBuilder(this, AppDataBase.class, AppDataBase.DATABASE_NAME)
                 .allowMainThreadQueries()
                 .build().getUserDao();
     }
-
 
     private void checkForUser() {
         mUserId = getIntent().getIntExtra(USER_ID_KEY, -1);
@@ -275,27 +217,20 @@ public class LandingPage extends AppCompatActivity {
             getPrefs();
         }
 
-//        SharedPreferences preferences = this.getSharedPreferences(PREFERENCES_KEY,Context.MODE_PRIVATE);
-//        mUserId = preferences.getInt(USER_ID_KEY,-1);
-
         mUserId = mPreferences.getInt(USER_ID_KEY, -1);
         if (mUserId != -1) {
             return;
         }
-
         Intent intent = LoginActivity.intentFactory(this);
         startActivity(intent);
-
     }
 
     private void getPrefs() {
         mPreferences = this.getSharedPreferences(PREFERENCES_KEY, Context.MODE_PRIVATE);
     }
 
-
     private void logoutUser() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-
         alertBuilder.setMessage(R.string.log_out);
 
         alertBuilder.setPositiveButton(getString(R.string.yes),
@@ -313,21 +248,14 @@ public class LandingPage extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
         alertBuilder.create().show();
     }
 
-
     public void openMainActivity() {
         Intent intent3 = new Intent(this, MainActivity.class);
         startActivity(intent3);
-    }
-
-    public void openCreateAccount() {
-        Intent intent2 = new Intent(this, CreateAccount.class);
-        startActivity(intent2);
     }
 
     @Override
@@ -356,24 +284,10 @@ public class LandingPage extends AppCompatActivity {
         Toast.makeText(this, "User cleared", Toast.LENGTH_SHORT).show();
     }
 
-
-    private LoginActivity getValuesFromDisplay() {
-        LoginActivity log = new LoginActivity();
-        return log;
-    }
-
     public static Intent intentFactory(Context context, int userId) {
         Intent intent = new Intent(context, LandingPage.class);
         intent.putExtra(USER_ID_KEY, userId);
-
         return intent;
-    }
-
-
-
-    public void openLandingPage() {
-        Intent intent = new Intent(this, LandingPage.class);
-        startActivity(intent);
     }
 
     public void MainActivity() {
@@ -400,11 +314,6 @@ public class LandingPage extends AppCompatActivity {
         editor.apply();
     }
 
-    private void DeleteUserFromPref(){
-        removeUserFromPreference(mUsername);
-
-    }
-
     public void deleteUser(int userId){
         AlertDialog.Builder alertbuilder = new AlertDialog.Builder(LandingPage.this);
         alertbuilder.setMessage("Are you sure to delete your user account?");
@@ -418,8 +327,6 @@ public class LandingPage extends AppCompatActivity {
                     mUser = mUserDao.getUserByUserId(userId);
                     mUserDao.delete(mUser);
                     openMainActivity();
-                        // User userDetele = mUser.getUserName();
-                       // mUserDao.delete(userDetele);
                     }
             }
         });
@@ -429,31 +336,5 @@ public class LandingPage extends AppCompatActivity {
             }
         });
         alertbuilder.create().show();
-
     }
-
-    //implement later
-    //delete normal user option
-//    mDeleteuser.setOnClickListener(new.View.OnClickListener(){
-//
-//        @Override
-//        public void onClick(View v){
-//            AlertDialog.Builder mAlertBuilder = new AlertDialog.Builder(LandingPage.this);
-//            final AlertDialog mAlertDialog = mAlertBuilder.create();
-//            mAlertBuilder.setMessage("Are you sure to delete your user?");
-//
-//            mAlertBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
-//                    if(mUser.getIsAdmin().equals("true")){
-//                        Toast.makeText(LandingPage.this, "An admin account cannot be deleted.", Toast.LENGTH_SHORT).show();
-//                    }else{
-//                        Toast.makeText(LandingPage.this, "The account has been deleted.", Toast.LENGTH_SHORT).show();
-//                        Intent intent = LoginActivity.intentFactory(getApplicationContext());
-//                    }
-//                }
-//            })
-//        }
-//    }
-
 }

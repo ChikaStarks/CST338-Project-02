@@ -25,43 +25,26 @@ import java.util.List;
 
 
 public class UserPost extends AppCompatActivity {
-
     ActivityUserPostBinding mUserPostBinding;
-
     private PostDao mPostDao;
-    private Post mPost;
     private int mUserId = -1;
     private static final String USER_ID_KEY = "com.example.schoolbees.userIdKey";
     private static final String PREFERENCES_KEY = "com.example.schoolbees.PREFERENCES_KEY";
     private SharedPreferences mPreferences = null;
-
-    private SharedPreferences mPostPreferences = null;
-    private User mUser;
-
     private Button SignOutButton; //logout button
-
     private Button goBackButton;
-
     private EditText mtitleField;
     private EditText mdescriptionField;
     private EditText mpriceField;
     private EditText mlocationField;
     private EditText mcontactField;
     private Button mpostAdButton;
-
     private String mPostname;
-
     private String mDescription;
-
     private String mPrice;
-
     private String mLocation;
-
     private String mContact;
-
-
     List<Post> mPostList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +55,6 @@ public class UserPost extends AppCompatActivity {
         setContentView(mUserPostBinding.getRoot());
         wireupDisplay();
         getDatabase();
-       // refreshDisplay();
-
-
     }//end of on create
 
     private void wireupDisplay() {
@@ -101,13 +81,7 @@ public class UserPost extends AppCompatActivity {
                     Post newPost = new Post(postname, description, price, location, contact);
 
                     mPostDao.insert(newPost);
-
-                    //    Log.d("String", postname + description + price + location + contact); //this is to check output in Logcat
-                    // refreshDisplay(); //this is for binding
-
-//                    Intent intent = UserCheck.intentFactory(getApplicationContext(), mPost.getPostId());
-//                    startActivity(intent);
-                    //openUserCheck();
+                    //Log.d("String", postname + description + price + location + contact); //this is to check output in Logcat
                     openPostSearch();
                 }
             }
@@ -130,17 +104,6 @@ public class UserPost extends AppCompatActivity {
 
     }
 
-//    private void submitPost() {
-//        String title = mtitleField.getText().toString();
-//        String description = mdescriptionField.getText().toString();
-//        String price = mpriceField.getText().toString();
-//        String location = mlocationField.getText().toString();
-//        String contact = mcontactField.getText().toString();
-//
-//        Post post = new Post(title, description, price, location, contact);
-//        mPostDao.insert(post);
-
-
     private void goBackToPreviousPage() {
         Intent intent = new Intent(this, LandingPage.class);
         startActivity(intent);
@@ -148,7 +111,6 @@ public class UserPost extends AppCompatActivity {
 
     private void logoutUser() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
-
         alertBuilder.setMessage(R.string.log_out);
 
         alertBuilder.setPositiveButton(getString(R.string.yes),
@@ -188,14 +150,10 @@ public class UserPost extends AppCompatActivity {
         mLocation = mlocationField.getText().toString();
         mContact = mcontactField.getText().toString();
     }
-
-    //switched to openPostSearch for now
     public void openPostSearch(){
         Intent intent = new Intent(this, PostSearch.class);
         startActivity(intent);
     }
-
-
 
     private void addUserToPreference(int userId) {
         if (mPreferences == null) {
@@ -231,12 +189,10 @@ public class UserPost extends AppCompatActivity {
         }
     }
 
-
     public void MainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
 
     private boolean checkInput() {
         List<Post> posts = mPostDao.getAllPosts();
@@ -252,31 +208,4 @@ public class UserPost extends AppCompatActivity {
         }
         return true;
     }
-
-
-    //Learned about binding
-        private void refreshDisplay () {
-            mPostList = mPostDao.getAllPosts();
-            if (!mPostList.isEmpty()) {
-                StringBuilder sb = new StringBuilder();
-                for (Post post : mPostList) {
-                    sb.append(post.toString());
-
-                }
-                mtitleField.setText(sb.toString());
-                mdescriptionField.setText(sb.toString());
-                mpriceField.setText(sb.toString());
-                mlocationField.setText(sb.toString());
-                mcontactField.setText(sb.toString());
-            } else {
-                mtitleField.setText(R.string.no_input_please_enter_the_title);
-                mdescriptionField.setText(R.string.no_input_please_enter_the_description);
-                mpriceField.setText(R.string.no_input_please_enter_the_price);
-                mlocationField.setText(R.string.no_input_please_enter_the_location);
-                mcontactField.setText(R.string.no_input_please_enter_contact_information);
-            }
-        }
-
 }
-
-//set up post id

@@ -19,13 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 public class CreateAccount extends AppCompatActivity {
-
     private Button MainPageButton2; //Main Page Button
     private EditText createUsername;
     private EditText createPass;
     private EditText confirmPass;
     private Button createButton;
-
     private UserDao mUserDao;
 
     @Override
@@ -35,7 +33,6 @@ public class CreateAccount extends AppCompatActivity {
 
         wireupDisplay();
         getDatabase();
-
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +45,6 @@ public class CreateAccount extends AppCompatActivity {
                     mUserDao.insert(newUser);
                     openLoginActivity();
                 }
-
             }
         });
 
@@ -58,7 +54,6 @@ public class CreateAccount extends AppCompatActivity {
                 openMainActivity();
             }
         });
-
     }
 
     private void wireupDisplay() {
@@ -68,7 +63,6 @@ public class CreateAccount extends AppCompatActivity {
         confirmPass = findViewById(R.id.editTextNumberPassword3);
         createButton = findViewById(R.id.button8);
     }
-
 
     public void openMainActivity() {
         Intent intent4 = new Intent(this, MainActivity.class);
@@ -86,13 +80,6 @@ public class CreateAccount extends AppCompatActivity {
                 .build()
                 .getUserDao();
     }
-
-    private void getValuesFromDisplay() {
-        String strPassword = createPass.getText().toString();
-        String strConfirmationPassword = confirmPass.getText().toString();
-        String strUsername = createUsername.getText().toString();
-    }
-
 
     public boolean checkUserName() {
         List<User> users = mUserDao.getAllUsers();
